@@ -9,11 +9,12 @@ const session = require('express-session');
 const app = express();
 
 passport.use(new GoogleStrategy({
-  clientID: '367884202943-mt6phu02mv7brahn2m99mjdjllc469tg.apps.googleusercontent.com',
-  clientSecret: 'e9BPjKqK0u4PtsQxTtVGSwcA',
-  callbackURL: 'http://localhost:8000/auth/google/callback'
-}, (accessToken, refreshToken, profile, done) => {
-done(null, profile);
+    clientID: '367884202943-mt6phu02mv7brahn2m99mjdjllc469tg.apps.googleusercontent.com',
+    clientSecret: 'e9BPjKqK0u4PtsQxTtVGSwcA',
+    callbackURL: 'http://localhost:8000/auth/google/callback'
+  }, (accessToken, refreshToken, profile, done) => {
+  done(null, profile);
+  console.log(profile);
 }));
 
 // serialize user when saving to session
@@ -52,7 +53,13 @@ app.get('/user/no-permission', (req, res) => {
 
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['email', 'profile'] }));
-  
+
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/user/no-permission' }),
+  (req, res) => {
+    res.redirect('/user/logged');
+  }
+);
+
 app.use('/', (req, res) => {
   res.status(404).render('notFound');
 });
@@ -60,9 +67,3 @@ app.use('/', (req, res) => {
 app.listen('8000', () => {
   console.log('Server is running on port: 8000');
 });
-
-// identyfikator klienta
-// 367884202943-mt6phu02mv7brahn2m99mjdjllc469tg.apps.googleusercontent.com
-
-// klucz klienta
-// e9BPjKqK0u4PtsQxTtVGSwcA
