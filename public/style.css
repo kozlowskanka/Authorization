@@ -152,6 +152,28 @@ button {
   box-shadow: 0 0 10px 5px rgba(0,0,0,0.1);
 }
 
+.logoutBtn {
+  display: block;
+  background-color: #ff5d6c;
+  width: 250px;
+  box-sizing: border-box;
+  position: relative;
+  margin: 0.2em auto;
+  border: none;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 0.2em;
+  font-size: 16px;
+  color: #FFF;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.logoutBtn:hover {
+  color: #DD4B39;
+}
+
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;
