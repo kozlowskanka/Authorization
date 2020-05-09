@@ -7,7 +7,7 @@ router.get('/no-permission', (req, res) => {
 
 router.get('/logged', (req, res) => {
   if(req.user) {
-    res.render('logged');
+    res.render('logged', {name: req.user.displayName , avatar: req.user._json.picture});
   } else {
     res.redirect('../user/no-permission');
   }
